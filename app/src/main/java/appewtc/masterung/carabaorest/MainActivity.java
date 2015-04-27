@@ -8,10 +8,17 @@ import android.view.MenuItem;
 
 public class MainActivity extends ActionBarActivity {
 
+    //Explicit
+    private UserTABLE objUserTABLE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Connected Database
+        objUserTABLE = new UserTABLE(this);
+
     }   // onCreate
 
     @Override
