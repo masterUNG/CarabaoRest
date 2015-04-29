@@ -1,5 +1,7 @@
 package appewtc.masterung.carabaorest;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -58,12 +60,16 @@ public class OrderActivity extends ActionBarActivity {
         createListView();
 
 
+
+
     }// onCreate
+
+
 
     private void createListView() {
 
         FoodTABLE objFoodTABLE = new FoodTABLE(this);
-        String[] strFood = objFoodTABLE.readAllFood();
+        final String[] strFood = objFoodTABLE.readAllFood();
         String[] strPrice = objFoodTABLE.readAllPrice();
 
         int[] intImageFood = {R.drawable.food1, R.drawable.food2, R.drawable.food3,
@@ -83,7 +89,55 @@ public class OrderActivity extends ActionBarActivity {
         MyAdapter objMyAdapter = new MyAdapter(OrderActivity.this, strFood, strPrice, intImageFood);
         listMenu.setAdapter(objMyAdapter);
 
+        //Active Click
+        listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                strMyFood = strFood[i];
+                chooseItem();
+
+            }
+        });
+
+
     }   // createListView
+
+    private void chooseItem() {
+
+        CharSequence[] objSequences = {"1 set", "2 set", "3 set", "4 set", "5 set", "6 set", };
+        AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
+        objBuilder.setTitle("How many set ?");
+        objBuilder.setSingleChoiceItems(objSequences, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                switch (i) {
+                    case 0:
+                        strMyItem = "1";
+                        break;
+                    case 1:
+                        strMyItem = "2";
+                        break;
+                    case 2:
+                        strMyItem = "3";
+                        break;
+                    case 3:
+                        strMyItem = "4";
+                        break;
+                    case 4:
+                        strMyItem = "5";
+                        break;
+                    case 5:
+                        strMyItem = "6";
+                        break;
+                }
+
+            }
+        });
+
+
+    }   // chooseItem
 
     private void createSpinner() {
 
