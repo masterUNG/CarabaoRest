@@ -60,5 +60,6 @@ public class MyAdapter extends BaseAdapter{
         imvListFood.setBackgroundResource(intImageFood[i]);
 
         return objView1;
-    }
+
+    } // Test
 }   // Main Class
