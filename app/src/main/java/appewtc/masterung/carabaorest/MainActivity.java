@@ -127,6 +127,7 @@ public class MainActivity extends ActionBarActivity {
 
                 //Intent to OrderActivity
                 Intent objIntent = new Intent(MainActivity.this, OrderActivity.class);
+                objIntent.putExtra("Officer", strOfficer);
                 startActivity(objIntent);
                 finish();
             }
