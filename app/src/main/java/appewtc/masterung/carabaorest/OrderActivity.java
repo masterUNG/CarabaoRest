@@ -133,8 +133,11 @@ public class OrderActivity extends ActionBarActivity {
                         break;
                 }
 
+                dialogInterface.dismiss();
+
             }
         });
+        objBuilder.show();
 
 
     }   // chooseItem
