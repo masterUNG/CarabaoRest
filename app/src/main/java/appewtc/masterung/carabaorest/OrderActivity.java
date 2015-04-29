@@ -18,15 +18,19 @@ import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 public class OrderActivity extends ActionBarActivity {
@@ -133,6 +137,9 @@ public class OrderActivity extends ActionBarActivity {
                         break;
                 }
 
+                //Post Order to mySQL
+                postOrderToMySQL();
+
                 dialogInterface.dismiss();
 
             }
@@ -141,6 +148,28 @@ public class OrderActivity extends ActionBarActivity {
 
 
     }   // chooseItem
+
+    private void postOrderToMySQL() {
+
+        try {
+
+            ArrayList<NameValuePair> objNameValuePairs = new ArrayList<NameValuePair>();
+            objNameValuePairs.add(new BasicNameValuePair("isAdd", "true"));
+            objNameValuePairs.add(new BasicNameValuePair("Officer", strMyOfficer));
+            objNameValuePairs.add(new BasicNameValuePair("Desk", strMyDesk));
+            objNameValuePairs.add(new BasicNameValuePair("Food", strMyFood));
+            objNameValuePairs.add(new BasicNameValuePair("Item", strMyItem));
+
+            HttpClient objHttpClient = new DefaultHttpClient();
+            HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/bao/add_data_bao.php");
+            objHttpPost.setEntity(new UrlEncodedFormEntity(objNameValuePairs, "UTF-8"));
+            objHttpClient.execute(objHttpPost);
+
+        } catch (Exception e) {
+            Log.d("bao", "Update MySQL ==> " + e.toString());
+        }
+
+    }   // postOrderToMySQL
 
     private void createSpinner() {
 
